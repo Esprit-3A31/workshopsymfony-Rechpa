@@ -27,11 +27,35 @@
 complet
 {%endif%}
 </td>
-
 </tr>
 {% endfor%}
 {%endif%}
 </table>
+<br>
+Les formations théoriques sont:<br>
+{% for i in listFormations %}
+{%if i.Description == 'theorique' %}
+ {{i.Titre}}
+ <br>
+{%endif%}
+{% endfor%}
+<br>
+La formation avec le plus grand nombre de participants est:<br>
+
+{% set maxValue = 0 %}
+
+{% for j in listFormations %} 
+    {% set maxValue = max(j.nb_participants, maxValue) %}
+    {%if j.nb_participants == maxValue%}
+        {{j.Titre}}
+    {%endif%}
+{% endfor %} 
+<br>
+Le nombre total des participants est:<br>
+{% set nb = 0 %}
+{% for k in listFormations %}
+{% set nb = nb + k.nb_participants %}
+{% endfor%}
+{{nb}}
+
 <h3 style="color:orange">Nb de formation = {{listFormations | length}}</h3>
-{% set x = 10 %}
-nbr = {{x}}
