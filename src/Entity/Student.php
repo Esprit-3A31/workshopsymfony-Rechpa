@@ -19,6 +19,10 @@ class Student
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'student')]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
+    private ?Classroom $classroom = null;
+
     public function getRef(): ?int
     {
         return $this->ref;
@@ -53,4 +57,18 @@ class Student
 
         return $this;
     }
+
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    
 }
