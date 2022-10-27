@@ -23,6 +23,9 @@ class Student
     #[ORM\JoinColumn(onDelete: "CASCADE")]
     private ?Classroom $classroom = null;
 
+    #[ORM\Column]
+    private ?int $Moyenne = null;
+
     public function getRef(): ?int
     {
         return $this->ref;
@@ -66,6 +69,18 @@ class Student
     public function setClassroom(?Classroom $classroom): self
     {
         $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    public function getMoyenne(): ?int
+    {
+        return $this->Moyenne;
+    }
+
+    public function setMoyenne(int $Moyenne): self
+    {
+        $this->Moyenne = $Moyenne;
 
         return $this;
     }

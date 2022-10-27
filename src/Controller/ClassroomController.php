@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ClassroomRepository;
+use App\Repository\StudentRepository;
 use App\Form\ClassroomType;
 use App\Entity\Classroom;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,14 +15,6 @@ use App\Form\SubmitType;
 
 class ClassroomController extends AbstractController
 {
-    #[Route('/classroom', name: 'app_classroom')]
-    public function index(): Response
-    {
-        return $this->render('classroom/index.html.twig', [
-            'controller_name' => 'ClassroomController',
-        ]);
-    }
-
 
     #[Route('/list', name: 'list_class')]
     public function listClassroom(ClassroomRepository $repository){
@@ -67,5 +60,15 @@ class ClassroomController extends AbstractController
         $em->remove($classroom);
         $em->flush();
         return $this->redirectToRoute("addClass");
+    }
+
+    #[Route('/find/{id}', name: 'showClassroom')]
+    public function showClassroom(StudentRepository $repo,$id,ClassroomRepository $repository)
+    {
+        $classroom= $repository->find($id);
+        $students= $repo->getStudentsByClassroom($id);
+        return $this->render("student/find.html.twig",
+        array("classroom"=>$classroom,
+            "students"=>$students));
     }
 }

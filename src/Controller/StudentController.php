@@ -22,6 +22,13 @@ class StudentController extends AbstractController
         ]);
     }
 
+    #[Route('/studentList', name: 'list_student')]
+    public function listStudent(StudentRepository $repository){
+        $student=$repository->findAll();
+        return $this->render("student/list.html.twig",
+        array('list_stud'=>$student));
+    }
+
     #[Route('/studentAdd', name: 'studentAdd')]
     public function addStudent(StudentRepository $repo,Request  $request,ManagerRegistry $doctrine)
     {
@@ -34,5 +41,16 @@ class StudentController extends AbstractController
          }
         return $this->renderForm("student/add.html.twig",array("form_student"=>$form));
     }
+
+    
+    #[Route('/studentref', name: 'list_student')]
+    public function FindByref(StudentRepository $repository){
+        $student=$repository->sortByref();
+        $moyenne=$repository->topStudent();
+        return $this->render("student/list.html.twig",
+        array("sortByReference"=>$student,"topstudent"=>$moyenne));
+    }
+ 
+    
 
 }

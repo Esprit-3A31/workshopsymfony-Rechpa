@@ -1,0 +1,23 @@
+<h3 style=color:orange> List Students </h3>
+
+{%for s in sortByReference %}
+
+Reference: {{s.ref}} <br>
+Nom: {{s.name}} <br>
+Description: {{s.description}} <br>
+Classroom: {{s.classroom.name}}<br>
+Moyenne: {{s.Moyenne}}<br>
+---------------------------------------
+<br>
+
+{%endfor%}
+
+<h3 style=color:orange> Top students </h3>
+{%for s in topstudent %}
+
+
+{{s.name}} /
+{{s.Moyenne}}
+<br>
+
+{%endfor%}
